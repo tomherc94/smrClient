@@ -1,70 +1,85 @@
 package model.entities;
 
-import java.util.Date;
-
 public class Log {
 
 	private Integer id;
 	private String ipClient;
-	private Date dateHour;
-	private Double temperature;
+	private String dateHour;
+	private Long freeRam;
+	private Long freeSwap;
 	private Double cpu;
-	private Double gpu;
 	private Double diskUsage;
-	private Double freeRam;
 	
 	public Log() {
 		
 	}
 
-	public Log(Integer id, String ipClient, Date dateHour, Double temperature, Double cpu, Double gpu, Double diskUsage,
-			Double freeRam) {
+	public Log(Integer id, String ipClient, String dateHour, Long freeRam, Long freeSwap, Double cpu,
+			Double diskUsage) {
+		super();
 		this.id = id;
 		this.ipClient = ipClient;
 		this.dateHour = dateHour;
-		this.temperature = temperature;
-		this.cpu = cpu;
-		this.gpu = gpu;
-		this.diskUsage = diskUsage;
 		this.freeRam = freeRam;
+		this.freeSwap = freeSwap;
+		this.cpu = cpu;
+		this.diskUsage = diskUsage;
 	}
 
 	public Integer getId() {
 		return id;
 	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getIpClient() {
 		return ipClient;
 	}
 
-	public Date getDateHour() {
+	public void setIpClient(String ipClient) {
+		this.ipClient = ipClient;
+	}
+
+	public String getDateHour() {
 		return dateHour;
 	}
 
-	public Double getTemperature() {
-		return temperature;
+	public void setDateHour(String dateHour) {
+		this.dateHour = dateHour;
+	}
+
+	public Long getFreeRam() {
+		return freeRam;
+	}
+
+	public void setFreeRam(Long freeRam) {
+		this.freeRam = freeRam;
+	}
+
+	public Long getFreeSwap() {
+		return freeSwap;
+	}
+
+	public void setFreeSwap(Long freeSwap) {
+		this.freeSwap = freeSwap;
 	}
 
 	public Double getCpu() {
 		return cpu;
 	}
 
-	public Double getGpu() {
-		return gpu;
+	public void setCpu(Double cpu) {
+		this.cpu = cpu;
 	}
 
 	public Double getDiskUsage() {
 		return diskUsage;
 	}
 
-	public Double getFreeRam() {
-		return freeRam;
-	}
-
-	@Override
-	public String toString() {
-		return "Log [id=" + id + ", ipClient=" + ipClient + ", dateHour=" + dateHour + ", temperature=" + temperature
-				+ ", cpu=" + cpu + ", gpu=" + gpu + ", diskUsage=" + diskUsage + ", freeRam=" + freeRam + "]";
+	public void setDiskUsage(Double diskUsage) {
+		this.diskUsage = diskUsage;
 	}
 	
 }
