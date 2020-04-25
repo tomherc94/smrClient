@@ -2,6 +2,7 @@ package aplication;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
@@ -20,7 +21,7 @@ public class Program {
 		
 		try {
 		
-		Socket cliente = new Socket("127.0.0.1", 12345);
+		Socket cliente = new Socket(InetAddress.getLocalHost().getHostAddress(), 12345);
         System.out.println("O cliente se conectou ao servidor!");
 
         Scanner teclado = new Scanner(System.in);
