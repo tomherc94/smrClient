@@ -34,6 +34,7 @@ public class ThreadSendLog extends Thread {
 		System.out.println("O cliente se conectou ao servidor!");
 
 		try {
+			System.out.println(InetAddress.getLocalHost().getHostAddress());
 			client = new Socket(InetAddress.getLocalHost().getHostAddress(), 12345);
 			do {
 				SysInfo sys = new SysInfo();
