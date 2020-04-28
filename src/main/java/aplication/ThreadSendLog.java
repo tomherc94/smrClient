@@ -42,7 +42,7 @@ public class ThreadSendLog extends Thread {
 
 				
 
-				File f = new File("logs\\logCurrent.txt");
+				File f = new File("logs\\logCurrent.csv");
 				FileInputStream in = new FileInputStream(f);
 				
 				
@@ -51,12 +51,13 @@ public class ThreadSendLog extends Thread {
 				BufferedWriter writer = new BufferedWriter(osw);
 				writer.write(f.getName() + "\n");
 				writer.flush();
-				int tamanho = 4096; // buffer de 4KB
+				int tamanho = 1024; // buffer de 4KB
 				byte[] buffer = new byte[tamanho];
 				int lidos = -1;
-				while ((lidos = in.read(buffer, 0, tamanho)) != -1) {
-					out.write(buffer, 0, lidos);
-				}
+				//while ((lidos = in.read(buffer, 0, tamanho)) != -1) {
+				lidos = in.read(buffer, 0, tamanho);
+				out.write(buffer, 0, lidos);
+				//}
 				Thread.sleep(timeout);
 				in.close();
 				//out.close();

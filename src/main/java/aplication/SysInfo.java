@@ -3,6 +3,7 @@ package aplication;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ import org.hyperic.sigar.cmd.SigarCommandBase;
 
 public class SysInfo extends SigarCommandBase {
 
-	public final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
+	public final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
 	public final SimpleDateFormat sdf2 = new SimpleDateFormat("ddMMyyyy-HHmmss");
 
 	public SysInfo(Shell shell) {
@@ -37,6 +38,8 @@ public class SysInfo extends SigarCommandBase {
 		org.hyperic.sigar.CpuInfo[] infos = this.sigar.getCpuInfoList();
 		org.hyperic.sigar.CpuInfo cpu = infos[0];
 		//System.out.println("CPU: " + cpu.getMhz() + " Mhz");
+		//org.hyperic.sigar.CpuTimer cpuTimer = new CpuTimer(this.sigar);
+		
 
 		// RAM
 		Mem mem = this.sigar.getMem();
@@ -57,17 +60,20 @@ public class SysInfo extends SigarCommandBase {
 			}
 		}
 		try {
-			FileWriter arq = new FileWriter("logs\\logCurrent.txt");
+			FileWriter arq = new FileWriter("logs\\logCurrent.csv");
 			PrintWriter gravarArq = new PrintWriter(arq);
 
+			gravarArq.println("ipClient,dateHour,cpuMhz,freeRam,diskUsagePerc");
+			gravarArq.printf(InetAddress.getLocalHost().getHostAddress());
+			gravarArq.print(",");
 			gravarArq.printf(dateHour);
-			gravarArq.print(";");
+			gravarArq.print(",");
 			gravarArq.print(cpu.getMhz());
-			gravarArq.print(";");
+			gravarArq.print(",");
 			gravarArq.print(mem.getActualFree());
-			gravarArq.print(";");
+			gravarArq.print(",");
 			gravarArq.print(swap.getFree());
-			gravarArq.print(";");
+			gravarArq.print(",");
 			gravarArq.print(usage.getUsePercent() * 100);
 			
 			arq.close();
