@@ -63,7 +63,7 @@ public class SysInfo extends SigarCommandBase {
 			FileWriter arq = new FileWriter("logs\\logCurrent.csv");
 			PrintWriter gravarArq = new PrintWriter(arq);
 
-			gravarArq.println("ipClient,dateHour,cpuMhz,freeRam,diskUsagePerc");
+			//gravarArq.println("ipClient,dateHour,cpuMhz,freeRam,freeSwap,diskUsagePerc");
 			gravarArq.printf(InetAddress.getLocalHost().getHostAddress());
 			gravarArq.print(",");
 			gravarArq.printf(dateHour);
