@@ -75,6 +75,10 @@ public class SysInfo extends SigarCommandBase {
 			gravarArq.print(swap.getFree());
 			gravarArq.print(",");
 			gravarArq.print(usage.getUsePercent() * 100);
+			gravarArq.print(",");
+			gravarArq.printf(InetAddress.getLocalHost().getHostAddress());
+			gravarArq.print(",");
+			gravarArq.printf(System.getProperty("os.name"));
 			
 			arq.close();
 		} catch (IOException e) {
