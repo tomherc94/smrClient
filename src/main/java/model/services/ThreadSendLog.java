@@ -6,36 +6,40 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.net.InetAddress;
 import java.net.Socket;
 
 import org.hyperic.sigar.shell.ShellCommandExecException;
 import org.hyperic.sigar.shell.ShellCommandUsageException;
 
+import gui.util.Alerts;
+import javafx.scene.control.Alert.AlertType;
+
 public class ThreadSendLog extends Thread {
 
 	private String[] args;
-	private Integer timeout;
+	private Long timeout;
 	private Socket client;
+	private String ipServidor;
 
 	public ThreadSendLog() {
 
 	}
 
-	public ThreadSendLog(String[] args, Integer timeout) {
+	public ThreadSendLog(String[] args, Long timeout, String ipServidor) {
 
 		this.args = args;
 		this.timeout = timeout;
+		this.ipServidor = ipServidor;
 	}
 
 	@Override
 	public void run() {
 		// Socket client = null;
-		System.out.println("O cliente se conectou ao servidor!");
+		
 
 		try {
-			System.out.println(InetAddress.getLocalHost().getHostAddress());
-			client = new Socket(InetAddress.getLocalHost().getHostAddress(), 12345);
+			client = new Socket(this.ipServidor, 12345);
+			System.out.println("O cliente se conectou ao servidor!");
 			do {
 				SysInfo sys = new SysInfo();
 				sys.processCommand(args);
@@ -69,6 +73,7 @@ public class ThreadSendLog extends Thread {
 		} catch (ShellCommandExecException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
+			//Alerts.showAlert("IOException", null, "Erro ao conectar com o servidor", AlertType.ERROR);
 			System.out.println(e.getMessage());
 		} catch (InterruptedException e) {
 			System.out.println(e.getMessage());
