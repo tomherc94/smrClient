@@ -1,6 +1,5 @@
 package gui;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,16 +23,15 @@ import model.services.ThreadSendLog;
 
 public class MainViewController implements Initializable {
 
-	
 	@FXML
 	private TextField txtIpServer;
-	
+
 	@FXML
 	private TextField txtTimeout;
-	
+
 	@FXML
 	private Button btConectar;
-	
+
 	@FXML
 	private Button btDesconectar;
 
@@ -41,14 +39,16 @@ public class MainViewController implements Initializable {
 	public void onBtConectarAction(ActionEvent event) {
 		Long timeout = Long.parseLong(txtTimeout.getText());
 		String ipServer = txtIpServer.getText();
+
 		ThreadSendLog sendLog = new ThreadSendLog(Main.getArgsSigar(), timeout, ipServer);
 		sendLog.start();
+
 		btConectar.setDisable(true);
 		txtTimeout.setDisable(true);
 		txtIpServer.setDisable(true);
 		btDesconectar.setDisable(false);
 	}
-	
+
 	@FXML
 	public void onBtDesconectarAction(ActionEvent event) {
 		System.exit(0);
@@ -62,30 +62,29 @@ public class MainViewController implements Initializable {
 
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtTimeout);
-		
+
 	}
 
 	protected synchronized <T> void loadView(String absoluteName, Consumer<T> initializeAction) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			VBox newVBox = loader.load();
-			
+
 			Scene mainScene = Main.getMainScene();
 			VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
-			
+
 			Node mainMenu = mainVBox.getChildren().get(0);
 			mainVBox.getChildren().clear();
 			mainVBox.getChildren().add(mainMenu);
 			mainVBox.getChildren().addAll(newVBox.getChildren());
-			
+
 			T controller = loader.getController();
 			initializeAction.accept(controller);
-			
+
 		} catch (IOException e) {
 			Alerts.showAlert("IOException", "Erro ao carregar a página", e.getMessage(), AlertType.ERROR);
 			e.printStackTrace();
 		}
 	}
-	
-}
 
+}
