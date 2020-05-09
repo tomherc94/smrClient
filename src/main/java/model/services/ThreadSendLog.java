@@ -11,6 +11,7 @@ import java.net.Socket;
 import org.hyperic.sigar.shell.ShellCommandExecException;
 import org.hyperic.sigar.shell.ShellCommandUsageException;
 
+import gui.MainViewController;
 import gui.util.Alerts;
 import javafx.application.Platform;
 import javafx.scene.control.Alert.AlertType;
@@ -39,8 +40,7 @@ public class ThreadSendLog extends Thread {
 
 		try {
 			client = new Socket(this.ipServidor, 12345);
-
-			System.out.println("O cliente se conectou ao servidor!");
+			MainViewController.statusThread = true;
 			do {
 				SysInfo sys = new SysInfo();
 				sys.processCommand(args);
@@ -76,6 +76,7 @@ public class ThreadSendLog extends Thread {
 		} catch (IOException e) {
 			Platform.runLater(() -> {
 				Alerts.showAlert("IOException", null, "Erro ao conectar com o servidor", AlertType.ERROR);
+				MainViewController.statusThread = false;
 				System.out.println(e.getMessage());
 			});
 		}

@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 import aplication.Main;
@@ -23,6 +24,10 @@ import model.services.ThreadSendLog;
 
 public class MainViewController implements Initializable {
 
+	public static boolean statusThread = false;
+
+	private ThreadSendLog sendLog;
+
 	@FXML
 	private TextField txtIpServer;
 
@@ -40,19 +45,30 @@ public class MainViewController implements Initializable {
 		Long timeout = Long.parseLong(txtTimeout.getText());
 		String ipServer = txtIpServer.getText();
 
-		ThreadSendLog sendLog = new ThreadSendLog(Main.getArgsSigar(), timeout, ipServer);
+		sendLog = new ThreadSendLog(Main.getArgsSigar(), timeout, ipServer);
 		sendLog.start();
-
-		btConectar.setDisable(true);
-		txtTimeout.setDisable(true);
-		txtIpServer.setDisable(true);
-		btDesconectar.setDisable(false);
+		
+		try {
+			TimeUnit.MILLISECONDS.sleep(1000);
+		} catch (InterruptedException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		if (statusThread == true) {
+			Alerts.showAlert("Status", null, "Cliente conectado com sucesso!", AlertType.INFORMATION);
+			btConectar.setDisable(true);
+			txtTimeout.setDisable(true);
+			txtIpServer.setDisable(true);
+			btDesconectar.setDisable(false);
+		}
 	}
 
 	@FXML
 	public void onBtDesconectarAction(ActionEvent event) {
 		System.exit(0);
 	}
+
+	// System.exit(0);
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
