@@ -49,7 +49,7 @@ public class MainViewController implements Initializable {
 		sendLog.start();
 		
 		try {
-			TimeUnit.MILLISECONDS.sleep(1000);
+			TimeUnit.MILLISECONDS.sleep(2000);
 		} catch (InterruptedException e) {
 			System.out.println(e.getMessage());
 		}
