@@ -56,9 +56,11 @@ public class SysInfo extends SigarCommandBase {
 		for (FileSystem f : fslist) {
 			if (f.getType() == FileSystem.TYPE_LOCAL_DISK) {
 				usage = this.sigar.getFileSystemUsage(f.getDirName());
+				
 				//System.out.println("Disk used percent (" + f.getDirName() + "): " + usage.getUsePercent() * 100);
 			}
 		}
+		//String usagePerc = String.format("%.2f", usage.getUsePercent() * 100);
 		try {
 			FileWriter arq = new FileWriter("logs\\logCurrent.csv");
 			PrintWriter gravarArq = new PrintWriter(arq);

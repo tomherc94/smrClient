@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -49,7 +50,12 @@ public class MainViewController implements Initializable {
 		sendLog.start();
 		
 		try {
-			TimeUnit.MILLISECONDS.sleep(2000);
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("Aguarde!");
+			alert.setContentText("Procurando servidor ...");
+			alert.show();
+			TimeUnit.MILLISECONDS.sleep(3500);
+			alert.close();
 		} catch (InterruptedException e) {
 			System.out.println(e.getMessage());
 		}
